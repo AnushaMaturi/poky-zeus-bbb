@@ -1,0 +1,26 @@
+From f62153ae179af3fb682e797b46189c4732dd403d Mon Sep 17 00:00:00 2001
+From: AnushaMaturi <khnanusha@gmail.com>
+Date: Tue, 4 May 2021 22:07:01 +0530
+Subject: [PATCH 3/3] Setup LCD_DATA15 as GPIO0 11 functionality to read switch
+ status
+
+---
+ board/ti/am335x/mux.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/board/ti/am335x/mux.c b/board/ti/am335x/mux.c
+index 4c1655d6..fa10e6a0 100644
+--- a/board/ti/am335x/mux.c
++++ b/board/ti/am335x/mux.c
+@@ -32,7 +32,7 @@ static struct module_pin_mux lcd_pin_mux[] = {
+         {OFFSET(lcd_hsync), (MODE(7) | PULLUDEN)},   /* GPIO2_23 */    //-->KM-LCD_RW
+         {OFFSET(lcd_data13), (MODE(0))},             /* lcd_data13 */ // By default disable Buzzer
+         {OFFSET(lcd_data14), (MODE(7))},             /* lcd_data14 */ // enable USER LED
+-        {OFFSET(lcd_data15), (MODE(0))},             /* lcd_data15 */ // Bydefault disable USER SW
++        {OFFSET(lcd_data15), (MODE(7) | RXACTIVE | PULLUDEN | PULLDOWN_EN)},             /* lcd_data15 */ // enable +ve level ENTER SW
+ 
+         {-1},
+ };
+-- 
+2.17.1
+
