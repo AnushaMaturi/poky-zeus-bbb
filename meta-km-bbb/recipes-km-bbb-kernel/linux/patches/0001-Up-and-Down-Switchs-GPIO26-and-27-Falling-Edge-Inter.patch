@@ -1,0 +1,51 @@
+From b279f59c198d3c16bd7cb611b53a2cda6290f979 Mon Sep 17 00:00:00 2001
+From: AnushaMaturi <khnanusha@gmail.com>
+Date: Thu, 3 Jun 2021 20:50:08 +0530
+Subject: [PATCH] Up and Down Switchs (GPIO26 and 27: Falling Edge Interrupt)
+ porting on KM-BBB target board
+
+---
+ arch/arm/boot/dts/km-bbb-am335x.dts | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/arch/arm/boot/dts/km-bbb-am335x.dts b/arch/arm/boot/dts/km-bbb-am335x.dts
+index 4c75d54e2..196c723bf 100644
+--- a/arch/arm/boot/dts/km-bbb-am335x.dts
++++ b/arch/arm/boot/dts/km-bbb-am335x.dts
+@@ -34,11 +34,24 @@
+         gpio-keys {
+                        compatible = "gpio-keys";
+                          autorepeat;
++
+                          enter {
+                                  label = "GPIO Key ENTER";
+                                  linux,code = <28>;
+                                  gpios = <&gpio0 11 0>;
+                          };
++
++                         up {
++                                 label = "GPIO Key UP";
++                                 linux,code = <103>;
++                                 gpios = <&gpio0 26 1>;
++                         };
++
++                         down {
++                                 label = "GPIO Key down";
++                                 linux,code = <108>;
++                                 gpios = <&gpio0 27 1>;
++                         };
+          };
+ 
+ };
+@@ -49,6 +62,8 @@
+                         AM33XX_IOPAD(0x8D4, MUX_MODE7)       /* lcd_data13.gpio0_9 - Buzzer */
+                         AM33XX_IOPAD(0x8D8, MUX_MODE7)       /* lcd_data14.gpio0_10 - RED LED*/
+                         AM33XX_IOPAD(0x8DC, PIN_INPUT_PULLDOWN | MUX_MODE7)    /* lcd_data15.gpio0_11 - Enter Switch*/
++                        AM33XX_IOPAD(0x828, PIN_INPUT_PULLUP | MUX_MODE7)    /* gpmc_ad10.gpio0_26 - Up Switch*/
++                        AM33XX_IOPAD(0x82C, PIN_INPUT_PULLUP | MUX_MODE7)    /* gpmc_ad11.gpio0_27 - Down Switch*/
+                 >;
+         };
+         uart0_pins: pinmux_uart0_pins {
+-- 
+2.17.1
+
